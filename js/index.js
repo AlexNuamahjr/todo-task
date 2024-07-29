@@ -69,13 +69,10 @@ function renderTodos() {
     if (filter === "Completed") return todo.completed;
   });
 
-  const todoList = document.getElementById('todo-list');
-  const itemsLeft = document.getElementById('items-left');
-
   todoList.innerHTML = filteredTodos
     .map(
       (todo, index) => `
-      <li class="flex items-center justify-between mb-4 p-2 rounded-lg ${todo.completed ? ' dark:bg-gray-600' : ' dark:bg-gray-700'} shadow-sm" data-id="${index}">
+      <li class="flex items-center justify-between mb-4 p-2 rounded-lg ${todo.completed ? ' dark:bg-gray-600' : ' dark:bg-gray-700'} shadow-sm" data-id="${index}" draggable="true" ondragstart="dragStart(event)" ondragover="dragOver(event)" ondrop="drop(event)">
         <label class="flex items-center">
           <input type="checkbox" class="mr-3" ${todo.completed ? 'checked' : ''} onclick="toggleCompleted(${index})">
           <span class="${todo.completed ? 'line-through text-gray-400' : ''} dark:text-white">${todo.text}</span>
@@ -89,5 +86,40 @@ function renderTodos() {
   itemsLeft.innerHTML = `
       ${todos.filter((todo) => !todo.completed).length} items left
   `;
+}
+
+// Drag and Drop Handlers
+let dragSrcEl = null;
+
+function dragStart(e) {
+  dragSrcEl = e.target;
+  e.dataTransfer.effectAllowed = 'move';
+  e.dataTransfer.setData('text/html', e.target.outerHTML);
+  e.target.classList.add('dragElem');
+}
+
+function dragOver(e) {
+  if (e.preventDefault) {
+    e.preventDefault();
+  }
+  e.dataTransfer.dropEffect = 'move';
+  return false;
+}
+
+function drop(e) {
+  if (e.stopPropagation) {
+    e.stopPropagation();
+  }
+  if (dragSrcEl != e.target) {    
+    dragSrcEl.outerHTML = e.target.outerHTML;
+    e.target.outerHTML = e.dataTransfer.getData('text/html');
+    const newTodos = Array.from(todoList.querySelectorAll('li')).map((li) => {
+      const index = parseInt(li.getAttribute('data-id'));
+      return todos[index];
+    });
+    todos = newTodos;
+    renderTodos();
+  }
+  return false;
 }
 renderTodos();
