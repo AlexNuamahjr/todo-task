@@ -1,36 +1,129 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
-  
-  <title>Frontend Mentor | Todo app</title>
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./images/favicon-32x32.png"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
 
-  <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
-  <style>
-    .attribution { font-size: 11px; text-align: center; }
-    .attribution a { color: hsl(228, 45%, 44%); }
-  </style>
-</head>
-<body>
+    <title>Frontend Mentor | Todo app</title>
 
-  Todo
+    <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+    <style>
+      .attribution {
+        font-size: 11px;
+        text-align: center;
+      }
+      .attribution a {
+        color: hsl(228, 45%, 44%);
+      }
+      .line-through {
+        text-decoration: line-through;
+      }
+      .filter-buttons {
+        color: black;
+      }
 
-  <!-- Add dynamic number --> items left
+      .filter-buttons.selected {
+        color: hsl(228, 45%, 44%);
+      }
+      body.dark {
+        background-color: #333;
+        color: #fff;
+      }
+      body.dark header {
+        background-image: url("./images/bg-desktop-dark.jpg");
+      }
+      body {
+        transition: background-color 0.3s ease, color 0.3s ease;
+      }      
+      body.dark {
+        background-color: #333;
+        color: #fff;
+      }         
+      body.dark main {
+        background-color: #444;
+        color: #fff;
+      }     
+      body.dark input {
+        background-color: #555;
+        color: #fff;
+      }
 
-  All
-  Active 
-  Completed
+      body.dark input {
+        background-color: #555;
+        color: #fff;
+      }      
+      body.dark footer {
+        color: #fff;
+      }      
+      body.dark footer {
+        color: #fff;
+      }
+      body.dark .filter-buttons {
+        color: #bbb;
+      }
+      body.dark .filter-buttons.selected {
+        color: #fff;
+      }
+    </style>
+  </head>
+  <body class="min-h-screen flex flex-col items-center text-gray-900">
+    <header
+      class="flex items-center justify-evenly w-full mb-8 h-40"
+      style="
+        background-image: url('./images/bg-desktop-light.jpg');
+        background-size: cover;
+        background-repeat: no-repeat;
+      "
+    >
+      <h1 class="text-white text-4xl font-bold mr-2">TODO</h1>
+      <button id="toggled-theme">
+        <img src="./images/icon-moon.svg" alt="" />
+      </button>
+    </header>
+    <main
+      class="bg-white rounded-lg shadow-lg w-full max-w-xl p-6 mt-28 absolute"
+    >
+      <input
+        id="new-todo"
+        class="w-full p-4 mb-4 rounded-lg shadow-inner text-lg"
+        placeholder="Create a new todo..."
+      />
+      <ul id="todo-list"></ul>
+      <hr />
+      <footer
+        class="text-black text-sm mt-8 w-full max-w-xl flex justify-between"
+      >
+        <span id="items-left">0 items left</span>
+        <div class="flex space-x-4">
+          <button id="filter-all" class="filter-buttons">All</button>
+          <button id="filter-active" class="filter-buttons">Active</button>
+          <button id="filter-completed" class="filter-buttons">
+            Completed
+          </button>
+          <button id="clear-completed" class="ml-auto filter-buttons">
+            Clear Completed
+          </button>
+        </div>
+      </footer>
+    </main>
 
-  Clear Completed
-
-  Drag and drop to reorder list
-
-  <div class="attribution">
-    Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
-    Coded by <a href="#">Your Name Here</a>.
-  </div>
-</body>
+    <div class="attribution">
+      Challenge by
+      <a href="https://www.frontendmentor.io?ref=challenge" target="_blank"
+        >Frontend Mentor</a
+      >. Coded by <a href="#">Alexander Nuamah Jr</a>.
+    </div>
+    <script src="./js/index.js"></script>
+  </body>
 </html>
